@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyRestaurants</string>
+    <string name="find_restaurants">Find Restaurants</string>
+    <string name="zip_code_input">Enter Zip Code</string>
+
+
+    <string name="consumer_key">OBiodjbCkWje36KRC3RFSA</string>
+    <string name="consumer_secret">u_IyVIAfzlF5Coin6zQgkGQt6DU</string>
+    <string name="token">e3BfTEBTUfYvLIQbcnwWNTehYYVSVuXw</string>
+    <string name="token_secret">J7nbh34hhbw1rHKZi-qZuY4gnmY</string>
+
+</resources>
