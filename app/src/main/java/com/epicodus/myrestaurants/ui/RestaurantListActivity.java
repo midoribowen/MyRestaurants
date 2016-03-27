@@ -1,6 +1,8 @@
 package com.epicodus.myrestaurants.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,10 @@ import okhttp3.Response;
 
 public class RestaurantListActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private SharedPreferences mSharedPreferences;
+    private String mRecentAddress;
+
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
@@ -35,10 +41,11 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_list);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
-
-        getRestaurants(location);
+        mSharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        mRecentAddress = mSharedPreferences.getString("location", null);
+        if (mRecentAddress != null) {
+            getRestaurants(mRecentAddress);
+        }
 
     }
 
