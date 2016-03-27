@@ -31,6 +31,9 @@ public class RestaurantDetailFragment extends Fragment {
 
     private Restaurant mRestaurant;
 
+    private static final int MAX_WIDTH = 400;
+    private static final int MAX_HEIGHT = 300;
+
     public static RestaurantDetailFragment newInstance(Restaurant restaurant) {
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         Bundle args = new Bundle();
@@ -50,7 +53,11 @@ public class RestaurantDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
         ButterKnife.bind(this, view);
 
-        Picasso.with(view.getContext()).load(mRestaurant.getImageUrl()).into(mRestaurantImageView);
+        Picasso.with(view.getContext())
+                .load(mRestaurant.getImageUrl())
+                .resize(MAX_WIDTH, MAX_HEIGHT)
+                .centerInside()
+                .into(mRestaurantImageView);
         mRestaurantNameTextView.setText(mRestaurant.getName());
         mRestaurantCuisineTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
         mRestaurantRatingTextView.setText(Double.toString(mRestaurant.getRating()) + "/5");
