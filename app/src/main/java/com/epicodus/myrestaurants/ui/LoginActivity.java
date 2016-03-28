@@ -14,6 +14,8 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -46,7 +48,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginWithPassword();
                 break;
             case R.id.registerButton:
-                // register user
+                registerNewUser();
+                break;
         }
     }
 
@@ -54,6 +57,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = mEmailEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         mFirebaseRef.authWithPassword(email, password, mAuthResultHandler);
+    }
+
+    public void registerNewUser() {
+        final String email = mEmailEditText.getText().toString();
+        final String password = mPasswordEditText.getText().toString();
+
+        mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+            @Override
+            public void onSuccess(Map<String, Object> stringObjectMap) {
+                mFirebaseRef.authWithPassword(email, password, mAuthResultHandler);
+            }
+
+            @Override
+            public void onError(FirebaseError firebaseError) {
+                Log.d("Registration Error", firebaseError.toString());
+            }
+        });
     }
 
     private void initializeAuthResultHandler() {
