@@ -3,6 +3,7 @@ package com.epicodus.myrestaurants.services;
 
 import android.content.Context;
 
+import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
 
@@ -89,6 +90,7 @@ public class YelpService {
                     Restaurant restaurant = new Restaurant(name, phone, website, rating,
                             imageUrl, address, latitude, longitude, categories);
                     restaurants.add(restaurant);
+//                    addToFirebase(restaurant);
                 }
             }
         } catch (IOException e) {
@@ -98,5 +100,13 @@ public class YelpService {
         }
         return restaurants;
     }
+
+//    private void addToFirebase(Restaurant restaurant) {
+//        MyRestaurantsApplication
+//                .getAppInstance()
+//                .getFirebaseRef()
+//                .child("restaurants/" + restaurant.getName())
+//                .setValue(restaurant);
+//    }
 
 }

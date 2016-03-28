@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 
 import butterknife.Bind;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+
+    @Bind(R.id.loginButton) Button mLoginButton;
 
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
     @Bind(R.id.locationEditText) EditText mLocationEditText;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
+        mLoginButton.setOnClickListener(this);
         mFindRestaurantsButton.setOnClickListener(this);
     }
 
@@ -40,11 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.findRestaurantsButton:
                 String location = mLocationEditText.getText().toString();
+//                saveLocationToFirebase(location);
                 if (!(location).equals("")) {
                     addToSharedPreferences(location);
                 }
-                Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
-                startActivity(intent);
+                Intent findRestaurantsIntent = new Intent(MainActivity.this, RestaurantListActivity.class);
+                startActivity(findRestaurantsIntent);
+                break;
+            case R.id.loginButton:
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
                 break;
         }
     }
@@ -52,4 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void addToSharedPreferences(String location) {
         mEditor.putString("location", location).commit();
     }
+
+//    public void saveLocationToFirebase(String location) {
+//        MyRestaurantsApplication.getAppInstance()
+//                .getFirebaseRef()
+//                .child("searchedLocations")
+//                .push()
+//                .setValue(location);
+//    }
 }
