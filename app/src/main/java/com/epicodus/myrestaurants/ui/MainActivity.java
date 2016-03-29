@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Firebase mFirebaseRef;
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
+    @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkForAuthenticatedUser();
 
         mFindRestaurantsButton.setOnClickListener(this);
+        mSavedRestaurantsButton.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.findRestaurantsButton:
                 Intent findRestaurantsIntent = new Intent(MainActivity.this, RestaurantListActivity.class);
                 startActivity(findRestaurantsIntent);
+                break;
+            case R.id.savedRestaurantsButton:
+                Intent savedRestaurantsIntent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
+                startActivity(savedRestaurantsIntent);
                 break;
         }
     }
