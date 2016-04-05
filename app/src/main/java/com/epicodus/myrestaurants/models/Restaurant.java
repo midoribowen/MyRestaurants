@@ -16,6 +16,8 @@ public class Restaurant {
     double longitude;
     ArrayList<String> categories = new ArrayList<>();
 
+    private String index;
+
     public Restaurant() {
         // empty bean constructor!!
     }
@@ -32,6 +34,7 @@ public class Restaurant {
         this.latitude = latitude;
         this.longitude = longitude;
         this.categories = categories;
+        this.index = "not_specified";
     }
 
     public String getName() {
@@ -73,6 +76,14 @@ public class Restaurant {
 
     public ArrayList<String> getCategories() {
         return categories;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 
 }

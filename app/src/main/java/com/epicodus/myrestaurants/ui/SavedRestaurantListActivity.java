@@ -47,7 +47,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
 
     private void setUpFirebaseQuery() {
         String location = mFirebaseRef.child("restaurants/" + mCurrentUserUid).toString();
-        mQuery = new Firebase(location);
+        mQuery = new Firebase(location).orderByChild("index");
     }
 
     private void setUpRecyclerView() {
@@ -63,6 +63,15 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        for (Restaurant restaurant : mAdapter.getItems()) {
+            restaurant.setIndex(Integer.toString(mAdapter.getItems().indexOf(restaurant)));
+            mFirebaseRef.child("restaurants/" + mCurrentUserUid + "/" + restaurant.getName()).setValue(restaurant);
+        }
     }
 
     @Override
