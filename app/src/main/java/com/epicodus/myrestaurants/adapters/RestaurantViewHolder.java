@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
 import com.epicodus.myrestaurants.ui.RestaurantDetailActivity;
+import com.epicodus.myrestaurants.util.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -20,7 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
@@ -40,7 +41,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
         Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
         intent.putExtra("position", getLayoutPosition() + "");
         intent.putExtra("restaurants", Parcels.wrap(mRestaurants));
@@ -57,6 +58,16 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
         mNameTextView.setText(restaurant.getName());
         mCategoryTextView.setText(restaurant.getCategories().get(0));
         mRatingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+    }
+
+    @Override
+    public void onItemSelected() {
+        // add animation
+    }
+
+    @Override
+    public void onItemClear() {
+        //add animation
     }
 
 }
