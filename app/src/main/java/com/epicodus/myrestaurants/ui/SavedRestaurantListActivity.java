@@ -28,7 +28,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_list);
+        setContentView(R.layout.activity_saved_restaurant_list);
         mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
     }
 
