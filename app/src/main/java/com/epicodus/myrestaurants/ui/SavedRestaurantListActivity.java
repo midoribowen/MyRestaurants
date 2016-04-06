@@ -22,56 +22,14 @@ import com.firebase.client.Query;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SavedRestaurantListActivity extends AppCompatActivity implements OnStartDragListener {
-    private Query mQuery;
+public class SavedRestaurantListActivity extends AppCompatActivity {
     private Firebase mFirebaseRef;
-    private String mCurrentUserUid;
-    private FirebaseRestaurantListAdapter mAdapter;
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    private ItemTouchHelper mItemTouchHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_list);
-        ButterKnife.bind(this);
-
-        Firebase.setAndroidContext(this);
         mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
-        mCurrentUserUid = mFirebaseRef.getAuth().getUid();
-
-        setUpFirebaseQuery();
-        setUpRecyclerView();
-    }
-
-    private void setUpFirebaseQuery() {
-        String location = mFirebaseRef.child("restaurants/" + mCurrentUserUid).toString();
-        mQuery = new Firebase(location).orderByChild("index");
-    }
-
-    private void setUpRecyclerView() {
-        mAdapter = new FirebaseRestaurantListAdapter(mQuery, Restaurant.class, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        mItemTouchHelper.startDrag(viewHolder);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        for (Restaurant restaurant : mAdapter.getItems()) {
-            restaurant.setIndex(Integer.toString(mAdapter.getItems().indexOf(restaurant)));
-            mFirebaseRef.child("restaurants/" + mCurrentUserUid + "/" + restaurant.getName()).setValue(restaurant);
-        }
     }
 
     @Override
