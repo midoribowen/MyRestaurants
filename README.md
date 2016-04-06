@@ -15,10 +15,10 @@ You will need the following programs installed on your computer.
 * Java JDK 8+
 * Android SDK
 
-### To Run LogLegal
+### To Run MyRestaurants
 * In a terminal window, navigate to ~/AndroidStudioProjects
-* Run `git clone https://github.com/midoribowen/LogLegal.git`
-* Navigate to ~/AndroidStudioProjects/LogLegal
+* Run `git clone https://github.com/midoribowen/MyRestaurants.git`
+* Navigate to ~/AndroidStudioProjects/MyRestaurants
 * Run on either an emulator or an Android OS Device connected to a computer
 
 ##### To set up an emulator
@@ -42,20 +42,7 @@ You will need the following programs installed on your computer.
 * Wait... it takes a little while the first time
 
 ## Known Bugs
-
-* If you select Log In in the overflow menu and go to LoginActivity, this does not do anything. Real Log in with authentication is not enabled yet. This is just a preview of this feature.
-
-###### HAXM Errors
-
-If you receive an error about HAX or HAXM, you may not have HAXM installed or HAXM may be installed improperly.
-
-Open Android Studio > Preferences and navigate to the SDK Manager through the Preferences menu (Appearance & Behavior > System Settings > Android SDK).
-
- Then click the link for 'Launch Standalone SDK Manager'. Scroll to the last item in this list to 'Intel X86 Emulator Accelerator (HAXM installer)'. If this says 'Installed', the problem is probably this: [How to Fix: "HAX is not working and emulator runs in emulation mode"](http://stackoverflow.com/questions/21031903/how-to-fix-hax-is-not-working-and-emulator-runs-in-emulation-mode).
-
- Select the checkbox next to this package and click 'Delete 1 package'. After it is deleted, try to reinstall with 1536MB of RAM allowed by HAXM, by following the instructions in the link below.
-
- If it is not installed, follow the instructions here: [Installation Instructions for Intel® Hardware Accelerated Execution Manager - Mac OS X*](https://software.intel.com/en-us/android/articles/installation-instructions-for-intel-hardware-accelerated-execution-manager-mac-os-x). Make sure to allow at least 1536MB of RAM.
+None currently!
 
 ## Support and contact details
 
@@ -63,7 +50,7 @@ Contact through GitHub username: midoribowen
 
 ## Technologies Used
 
-AndroidStudio, AndroidSDK, Java v1.8, Gradle
+AndroidStudio, Firebase, AndroidSDK, Java v1.8, Gradle
 
 ### License
 Copyright (c) 2016 Midori Bowen
