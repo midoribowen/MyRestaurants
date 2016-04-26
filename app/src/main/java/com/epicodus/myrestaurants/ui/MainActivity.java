@@ -24,12 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private Firebase mFirebaseRef;
-
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
-
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
-    @Bind(R.id.locationEditText) EditText mLocationEditText;
+    @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
         checkForAuthenticatedUser();
 
-        mSharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
-
         mFindRestaurantsButton.setOnClickListener(this);
+        mSavedRestaurantsButton.setOnClickListener(this);
     }
 
     @Override
@@ -84,17 +78,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.findRestaurantsButton:
-                String location = mLocationEditText.getText().toString();
-                if (!(location).equals("")) {
-                    addToSharedPreferences(location);
-                }
                 Intent findRestaurantsIntent = new Intent(MainActivity.this, RestaurantListActivity.class);
                 startActivity(findRestaurantsIntent);
+                break;
+            case R.id.savedRestaurantsButton:
+                Intent savedRestaurantsIntent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
+                startActivity(savedRestaurantsIntent);
                 break;
         }
     }
 
-    private void addToSharedPreferences(String location) {
-        mEditor.putString("location", location).commit();
-    }
 }

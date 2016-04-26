@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
+import com.firebase.client.Firebase;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -30,7 +33,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     @Bind(R.id.restaurantPhoneTextView) TextView mRestaurantPhoneTextView;
     @Bind(R.id.restaurantAddressTextView) TextView mRestaurantAddressTextView;
     @Bind(R.id.saveRestaurantButton) Button mSaveRestaurantButton;
-
+    private Firebase mFirebaseRef;
+    private String mCurrentUserId;
     private Restaurant mRestaurant;
 
     private static final int MAX_WIDTH = 400;
@@ -48,6 +52,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
+        mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
+        mCurrentUserId = mFirebaseRef.getAuth().getUid();
     }
 
     @Override
@@ -69,6 +75,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         mRestaurantWebsiteTextView.setOnClickListener(this);
         mRestaurantPhoneTextView.setOnClickListener(this);
         mRestaurantAddressTextView.setOnClickListener(this);
+        mSaveRestaurantButton.setOnClickListener(this);
 
         return view;
     }
@@ -93,6 +100,10 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                                 + "?q=" + mRestaurant.getName()));
                 startActivity(mapIntent);
                 break;
+            case R.id.saveRestaurantButton:
+                mFirebaseRef.child("restaurants/" + mCurrentUserId + "/"
+                        + mRestaurant.getName()).setValue(mRestaurant);
+                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 
